@@ -1,0 +1,101 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #0f0f0f;
+    overscroll-behavior: none;
+}
+
+#app {
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#game-container,
+#game-container canvas {
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Horizontal-first: in portrait, cover the game with a friendly "rotate" hint. */
+#rotate-overlay {
+    display: none;
+}
+
+@media (orientation: portrait) {
+    #rotate-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5vh;
+        background: linear-gradient(180deg, #8fdcf5 0%, #dff3ff 100%);
+        -webkit-user-select: none;
+        user-select: none;
+        touch-action: none;
+    }
+}
+
+.rotate-phone {
+    display: block;
+    width: 78px;
+    height: 140px;
+    border: 8px solid #3a4a68;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: inset 0 0 0 4px #eaf6ff;
+    transform-origin: center;
+    animation: rotatehint 2.4s ease-in-out infinite;
+}
+
+@keyframes rotatehint {
+    0%, 15% { transform: rotate(0deg); }
+    50%, 65% { transform: rotate(-90deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.rotate-text {
+    margin: 0;
+    font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
+    font-size: clamp(22px, 6vw, 40px);
+    font-weight: bold;
+    color: #3a6ea5;
+}
+
+/* Let players opt to play vertically anyway. */
+#rotate-overlay.dismissed {
+    display: none !important;
+}
+
+#rotate-dismiss {
+    margin-top: 1vh;
+    border: none;
+    cursor: pointer;
+    background: #ffd93d;
+    color: #6a4a00;
+    font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
+    font-weight: bold;
+    font-size: clamp(16px, 4.5vw, 26px);
+    padding: 12px 30px;
+    border-radius: 999px;
+    box-shadow: 0 4px 0 #e0a800;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+#rotate-dismiss:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #e0a800;
+}
